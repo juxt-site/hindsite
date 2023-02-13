@@ -6,6 +6,10 @@
 
     <link rel="stylesheet" href="tufte-css/tufte.css"/>
 
+<!--
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css">
+-->
+
     <script src="htmx/htmx.min.js"></script>
 
     <style>
@@ -23,10 +27,12 @@
 
   <body>
 
+    <main class="container">
+
     <h1>HindSite demo</h1>
 
-    <h2>Login</h2>
-    <a href="https://auth.site.test/oauth/authorize?client_id=hindsite&response_type=token">Login</a>
+    <h2>Authorize</h2>
+    <a href="https://auth.site.test/oauth/authorize?client_id=hindsite&response_type=token">Authorize</a>
 
     <p>Access Token: <tt id="access-token"></tt></p>
 
@@ -52,6 +58,8 @@
       </code>
       <aside>(note: this won't complete until we have authorization working!)</aside>
     </div>
+
+    </main>
 
     <script>
       const accessToken = new URLSearchParams(location.hash.substring(1)).get("access_token");

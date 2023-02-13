@@ -5,24 +5,24 @@
     <link rel="icon" href="data:,">
 
     <link rel="stylesheet" href="https://edwardtufte.github.io/tufte-css/tufte.css"/>
-<!--
-    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css">
--->
+    <!--
+	<link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css">
+	-->
 
-    <script src="https://unpkg.com/htmx.org@1.8.5"
-	    integrity="sha384-7aHh9lqPYGYZ7sTHvzP1t3BAfLhYSTy9ArHdP3Xsr9/3TlGurYgcPBoFmXX2TX/w"
-	    crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/htmx.org@1.8.5"
+		integrity="sha384-7aHh9lqPYGYZ7sTHvzP1t3BAfLhYSTy9ArHdP3Xsr9/3TlGurYgcPBoFmXX2TX/w"
+		crossorigin="anonymous"></script>
 
-    <style>
-      table {
-	  border: 1px solid black;
-	  border-collapse: collapse;
-      }
-      table td {
-	  border: 1px solid black;
-	  padding: 2pt;
-      }
-    </style>
+	<style>
+	  table {
+	      border: 1px solid black;
+	      border-collapse: collapse;
+	  }
+	  table td {
+	      border: 1px solid black;
+	      padding: 2pt;
+	  }
+	</style>
 
   </head>
 
@@ -30,35 +30,35 @@
 
     <main class="container">
 
-    <h1>Site Surveyor</h1>
+      <h1>Site Surveyor</h1>
 
-    <h2>Authorize</h2>
-    <a href="https://auth.site.test/oauth/authorize?client_id=hindsite&response_type=token">Authorize</a>
+      <h2>Authorize</h2>
+      <a href="https://auth.site.test/oauth/authorize?client_id=hindsite&response_type=token">Authorize</a>
 
-    <p>Access Token: <tt id="access-token"><small>(None yet acquired)</small></tt></p>
+      <p>Access Token: <tt id="access-token"><small>(None yet acquired)</small></tt></p>
 
-    <h2>List of operations</h2>
+      <h2>List of operations</h2>
 
-    <p>Until we acquire an <i>access token</i>, these will be just the 'public' operations!</p>
+      <p>Until we acquire an <i>access token</i>, these will be just the 'public' operations!</p>
 
-    <div class="authorized"
-	 hx-get="https://data.site.test/_site/operations.html"
-	 hx-trigger="load">
-      <code>
-	Loading operations...
-      </code>
-    </div>
+      <div class="authorized"
+	   hx-get="https://data.site.test/_site/operations.html"
+	   hx-trigger="load">
+	<code>
+	  Loading operations...
+	</code>
+      </div>
 
-    <h2>List of users</h2>
+      <h2>List of users</h2>
 
-    <div class="authorized"
-	 hx-get="https://data.site.test/_site/users.html"
-	 hx-trigger="load">
-      <code>
-	Loading users...
-      </code>
-      <aside>(note: this won't complete until we have authorization working!)</aside>
-    </div>
+      <div class="authorized"
+	   hx-get="https://data.site.test/_site/users.html"
+	   hx-trigger="load">
+	<code>
+	  Loading users...
+	</code>
+	<aside>(note: this won't complete until we have authorization working!)</aside>
+      </div>
 
     </main>
 

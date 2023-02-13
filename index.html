@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HindSite demo</title>
+    <link rel="icon" href="data:,">
+
+    <link rel="stylesheet" href="tufte.css"/>
+
+    <script src="htmx.min.js"></script>
+
+    <style>
+      table {
+	  border: 1px solid black;
+	  border-collapse: collapse;
+      }
+      table td {
+	  border: 1px solid black;
+	  padding: 2pt;
+      }
+    </style>
+
+  </head>
+
+  <body>
+
+    <h1>HindSite demo</h1>
+
+    <p>Access Token: <tt id="access-token"></tt></p>
+
+    <p>Things to do...</p>
+    <ul>
+      <li style="text-decoration: line-through">
+	Get a nice styleless CSS see <a href="https://github.com/dbohdan/classless-css#stylizecss">here</a>
+      </li>
+      <li style="text-decoration: line-through">
+	Fix CORS
+      </li>
+      <li style="text-decoration: line-through">
+	GET on load
+      </li>
+      <li style="text-decoration: line-through">
+	Login link which redirects to https://auth.site.test/authorize and gets an access token.
+      </li>
+      <li style="text-decoration: line-through">
+	Do some JS that pulls out an access-token and puts it into the htmx client.
+      </li>
+      <li style="text-decoration: line-through">
+	Fix tufte font loading errors
+      </li>
+    </ul>
+
+    <h2>Login</h2>
+    <a href="https://auth.site.test/oauth/authorize?client_id=hindsite&response_type=token">Login</a>
+
+    <script>
+      const accessToken = new URLSearchParams(location.hash.substring(1)).get("access_token");
+      document.getElementById("access-token").innerText = accessToken;
+    </script>
+
+    <h2>List of operations</h2>
+
+    <p>Until we acquire an <i>access token</i>, these will be just the 'public' operations!</p>
+
+    <div hx-get="https://data.site.test/_site/operations.html"
+	 hx-trigger="load"
+	 hx-headers='{"authorization": "Bearer c0709209d0fa27b9083486b87fd23ba4"}'>
+      <code>
+	Loading operations...
+      </code>
+    </div>
+
+    <h2>List of users</h2>
+
+    <div hx-get="https://data.site.test/_site/users.html"
+	 hx-trigger="load"
+	 hx-headers='{"authorization": "Bearer c0709209d0fa27b9083486b87fd23ba4"}'>
+      <code>
+	Loading users...
+      </code>
+      <aside>(note: this won't complete until we have authorization working!)</aside>
+    </div>
+
+  </body>
+</html>

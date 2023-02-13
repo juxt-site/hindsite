@@ -37,7 +37,11 @@
 
   <body>
 
-    <main class="container">
+    <main
+      x-data="{authServer: 'https://auth.site.test',
+	      apiServer: 'https://data.site.test'
+	      }"
+      class="container">
 
       <img style="float: right" src="surveyor.jpg">
 
@@ -49,7 +53,7 @@
       <h3>Authorize</h3>
       <p>Before we can continue, we must first acquire an <b>access token</b> which will be used to talk to your Site instance.</p>
 
-      <div x-data="{authServer: 'https://auth.site.test'}">
+      <div>
 	<p>First, let's configure the location of your authorization server.</p>
 
 	<label for="authServer">Authorization Server</label>
@@ -60,8 +64,17 @@
 	  <a :href="authServer + '/oauth/authorize?client_id=surveyor&response_type=token'">here</a>
 	  to get your token!</p>
 
-	<label for="access-token">Access Token</label>
-	<input id="access-token">
+	<div>
+	  <label for="access-token">Access Token</label>
+	  <input id="access-token">
+	</div>
+
+	<div>
+	  <label for="apiServer">API Server</label>
+	  <input id="apiServer" x-model="apiServer"
+		 placeholder="API Server...">
+	</div>
+
       </div>
 
 
@@ -84,7 +97,7 @@
 	<figure class="fullwidth">
 	  <h3>List of Operations</h3>
 	  <div class="authorized"
-	       hx-get="https://data.site.test/_site/operations.html"
+	       :hx-get="apiServer + '/_site/operations.html'"
 	       hx-trigger="load">
 	    <code>
 	      Loading operations...
@@ -100,7 +113,7 @@
 	<figure class="fullwidth">
 	  <h3>List of Users</h3>
 	  <div class="authorized"
-	       hx-get="https://data.site.test/_site/users.html"
+	       :hx-get="apiServer + '/_site/users.html'"
 	       hx-trigger="load">
 	    <code>
 	      Loading users...

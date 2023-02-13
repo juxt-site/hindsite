@@ -13,6 +13,8 @@
 		integrity="sha384-7aHh9lqPYGYZ7sTHvzP1t3BAfLhYSTy9ArHdP3Xsr9/3TlGurYgcPBoFmXX2TX/w"
 		crossorigin="anonymous"></script>
 
+	 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
 	<style>
 	  table {
 	      border: 1px solid black;
@@ -45,8 +47,20 @@
       <aside style="border: 1px dotted gray; margin: 1em">
 	<h3>Authorize</h3>
 	<p>Before we can continue, we must first acquire an <b>access token</b> which will be used to talk to your Site instance.</p>
-	<p>Click
-	  <a href="https://auth.site.test/oauth/authorize?client_id=surveyor&response_type=token">here</a> to get your token!<p>
+
+	  <div x-data="{
+		       authServer: 'https://auth.site.test' }">
+	    <p>First, let's configure the location of your authorization server.</p>
+
+	    <fieldset>
+	      <label for="authServer">Authorization Server</label>
+	      <input id="authServer" x-model="authServer"
+		     placeholder="Authorization Server...">
+	    </fieldset>
+
+	    <p>Click
+	  <a :href="authServer + '/oauth/authorize?client_id=surveyor&response_type=token'">here</a> to get your token!<p>
+	  </div>
 
 	<p>Access Token: <tt id="access-token"><small>(None yet acquired)</small></tt></p>
       </aside>

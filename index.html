@@ -4,13 +4,14 @@
     <title>HindSite demo</title>
     <link rel="icon" href="data:,">
 
-    <link rel="stylesheet" href="tufte-css/tufte.css"/>
-
+    <link rel="stylesheet" href="https://edwardtufte.github.io/tufte-css/tufte.css"/>
 <!--
     <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css">
 -->
 
-    <script src="htmx/htmx.min.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.8.5"
+	    integrity="sha384-7aHh9lqPYGYZ7sTHvzP1t3BAfLhYSTy9ArHdP3Xsr9/3TlGurYgcPBoFmXX2TX/w"
+	    crossorigin="anonymous"></script>
 
     <style>
       table {
@@ -29,12 +30,12 @@
 
     <main class="container">
 
-    <h1>HindSite demo</h1>
+    <h1>Site Survey</h1>
 
     <h2>Authorize</h2>
     <a href="https://auth.site.test/oauth/authorize?client_id=hindsite&response_type=token">Authorize</a>
 
-    <p>Access Token: <tt id="access-token"></tt></p>
+    <p>Access Token: <tt id="access-token"><small>(None yet acquired)</small></tt></p>
 
     <h2>List of operations</h2>
 
@@ -63,7 +64,9 @@
 
     <script>
       const accessToken = new URLSearchParams(location.hash.substring(1)).get("access_token");
-      document.getElementById("access-token").innerText = accessToken;
+      if (accessToken) {
+	document.getElementById("access-token").innerText = accessToken;
+      }
 
       const getAuthorizationHeader = function () { "Bearer" + accessToken };
 

@@ -120,13 +120,24 @@
 	    </code>
 	    <aside>(note: this won't complete until we have authorization working!)</aside>
 	  </div>
+
 	</figure>
+
+	<h3>mal</h3>
+	<div class="authorized" :hx-get="authServer + '/users/mal'" hx-trigger="load">
+	  <code>
+	    Loading mal...
+	  </code>
+	</div>
 
       </section>
 
     </main>
 
     <script>
+      // This is for extracting the access_token, if there is one,
+      // from the URI fragment, displaying it and setting it in the
+      // Authorization header for htmx requests.
       const accessToken = new
       URLSearchParams(location.hash.substring(1)).get("access_token");
       if (accessToken) {

@@ -32,14 +32,19 @@
 
       <h1>Site Surveyor</h1>
 
+      <p>Welcome to Site Surveyor! This is a website that talks to
+      your Site instance.</p>
+
       <h2>Authorize</h2>
-      <a href="https://auth.site.test/oauth/authorize?client_id=hindsite&response_type=token">Authorize</a>
+      <p>Before we can continue, we must first acquire an <b>access token</b> which will be used to talk to your Site instance.</p>
+      <p>Click
+      <a href="https://auth.site.test/oauth/authorize?client_id=hindsite&response_type=token">here</a> to get your token!<p>
 
       <p>Access Token: <tt id="access-token"><small>(None yet acquired)</small></tt></p>
 
       <h2>List of operations</h2>
 
-      <p>Until we acquire an <i>access token</i>, these will be just the 'public' operations!</p>
+      <p style="display: none">Until we acquire an <i>access token</i>, these will be just the 'public' operations!</p>
 
       <div class="authorized"
 	   hx-get="https://data.site.test/_site/operations.html"

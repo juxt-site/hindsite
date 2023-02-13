@@ -51,29 +51,33 @@
 	This is a website that talks to your Site instance.</p>
 
       <h3>Authorize</h3>
-      <p>Before we can continue, we must first acquire an <b>access token</b> which will be used to talk to your Site instance.</p>
+      <p>Before we can continue, we must first acquire an <b>access token</b> which will be used to access your Site instance's resources.</p>
 
       <div>
 	<p>First, let's configure the location of your authorization server.</p>
 
-	<label for="authServer">Authorization Server</label>
-	<input id="authServer" x-model="authServer"
-	       placeholder="Authorization Server...">
+	<p>
+	  <label for="authServer">OAuth2 Authorization Server</label>
+	  <input id="authServer" x-model="authServer"
+		 placeholder="Authorization Server...">
+	</p>
 
 	<p>Click
 	  <a :href="authServer + '/oauth/authorize?client_id=surveyor&response_type=token'">here</a>
 	  to get your token!</p>
 
-	<div>
+	<p>
 	  <label for="access-token">Access Token</label>
 	  <input id="access-token">
-	</div>
+	</p>
 
-	<div>
+	<p>Finally we need to know the host serving the Site API:</p>
+
+	<p>
 	  <label for="apiServer">API Server</label>
 	  <input id="apiServer" x-model="apiServer"
 		 placeholder="API Server...">
-	</div>
+	</p>
 
       </div>
 
@@ -96,8 +100,11 @@
 
 	<figure class="fullwidth">
 	  <h3>List of Operations</h3>
+
+	  <p>This list is available from <a href="https://swagger-ui.site.test/#/Operations" x-text="apiServer + '/_site/operations'"></a></p>
+
 	  <div class="authorized"
-	       :hx-get="apiServer + '/_site/operations.html'"
+	       :hx-get="apiServer + '/_site/operations'"
 	       hx-trigger="load">
 	    <code>
 	      Loading operations...
@@ -110,10 +117,17 @@
       <section>
 	<h2>Users</h2>
 
+	<p>TODO: Show a whole tree of a selected user, including identities and access-tokens.</p>
+
 	<figure class="fullwidth">
 	  <h3>List of Users</h3>
+
+	  <p>The list of users is available
+	from <a href="https://swagger-ui.site.test/#/Users"
+	x-text="apiServer + '/_site/users'"></a></p>
+
 	  <div class="authorized"
-	       :hx-get="apiServer + '/_site/users.html'"
+	       :hx-get="apiServer + '/_site/users'"
 	       hx-trigger="load">
 	    <code>
 	      Loading users...

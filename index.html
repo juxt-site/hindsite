@@ -25,45 +25,18 @@
 
     <h1>HindSite demo</h1>
 
-    <p>Access Token: <tt id="access-token"></tt></p>
-
-    <p>Things to do...</p>
-    <ul>
-      <li style="text-decoration: line-through">
-	Get a nice styleless CSS see <a href="https://github.com/dbohdan/classless-css#stylizecss">here</a>
-      </li>
-      <li style="text-decoration: line-through">
-	Fix CORS
-      </li>
-      <li style="text-decoration: line-through">
-	GET on load
-      </li>
-      <li style="text-decoration: line-through">
-	Login link which redirects to https://auth.site.test/authorize and gets an access token.
-      </li>
-      <li style="text-decoration: line-through">
-	Do some JS that pulls out an access-token and puts it into the htmx client.
-      </li>
-      <li style="text-decoration: line-through">
-	Fix tufte font loading errors
-      </li>
-    </ul>
-
     <h2>Login</h2>
     <a href="https://auth.site.test/oauth/authorize?client_id=hindsite&response_type=token">Login</a>
 
-    <script>
-      const accessToken = new URLSearchParams(location.hash.substring(1)).get("access_token");
-      document.getElementById("access-token").innerText = accessToken;
-    </script>
+    <p>Access Token: <tt id="access-token"></tt></p>
 
     <h2>List of operations</h2>
 
     <p>Until we acquire an <i>access token</i>, these will be just the 'public' operations!</p>
 
-    <div hx-get="https://data.site.test/_site/operations.html"
-	 hx-trigger="load"
-	 hx-headers='{"authorization": "Bearer c0709209d0fa27b9083486b87fd23ba4"}'>
+    <div class="authorized"
+	 hx-get="https://data.site.test/_site/operations.html"
+	 hx-trigger="load">
       <code>
 	Loading operations...
       </code>
@@ -71,14 +44,26 @@
 
     <h2>List of users</h2>
 
-    <div hx-get="https://data.site.test/_site/users.html"
-	 hx-trigger="load"
-	 hx-headers='{"authorization": "Bearer c0709209d0fa27b9083486b87fd23ba4"}'>
+    <div class="authorized"
+	 hx-get="https://data.site.test/_site/users.html"
+	 hx-trigger="load">
       <code>
 	Loading users...
       </code>
       <aside>(note: this won't complete until we have authorization working!)</aside>
     </div>
+
+    <script>
+      const accessToken = new URLSearchParams(location.hash.substring(1)).get("access_token");
+      document.getElementById("access-token").innerText = accessToken;
+
+      const getAuthorizationHeader = function () { "Bearer" + accessToken };
+
+      for (const el of document.getElementsByClassName("authorized")) {
+	el.setAttribute("hx-headers",
+			JSON.stringify({"authorization": "Bearer " + accessToken}))
+      }
+    </script>
 
   </body>
 </html>

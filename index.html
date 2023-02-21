@@ -119,52 +119,55 @@
 
 	<p>TODO: Show a whole tree of a selected user, including identities and access-tokens.</p>
 
-	<figure class="fullwidth">
-	  <h3>List of Users</h3>
+	<!--
+	    <figure class="fullwidth">
+	      <h3>List of Users</h3>
 
-	  <p>The list of users is available
-	from <a href="https://swagger-ui.site.test/#/Users"
-	x-text="apiServer + '/_site/users'"></a></p>
+	      <p>The list of users is available
+		from <a href="https://swagger-ui.site.test/#/Users"
+			x-text="apiServer + '/_site/users'"></a></p>
 
-	  <div class="authorized"
-	       :hx-get="apiServer + '/_site/users'"
-	       hx-trigger="load">
-	    <code>
-	      Loading users...
-	    </code>
-	    <aside>(note: this won't complete until we have authorization working!)</aside>
-	  </div>
+	      <div class="authorized"
+		   :hx-get="apiServer + '/_site/users'"
+						       hx-trigger="load">
+									<code>
+									  Loading users...
+									</code>
+									<aside>(note: this won't complete until we have authorization working!)</aside>
+</div>
 
-	</figure>
+</figure>
+-->
 
-	<h3>mal</h3>
-	<div class="authorized" :hx-get="authServer + '/users/mal'" hx-trigger="load">
-	  <code>
-	    Loading mal...
-	  </code>
-	</div>
+<!--
+    <h3>mal</h3>
+    <div class="authorized" :hx-get="apiServer + '/users/mal'" hx-trigger="load">
+      <code>
+	Loading mal...
+      </code>
+    </div>
+    -->
 
-      </section>
+</section>
 
-    </main>
+<div class="flex-center full-height">
+    <div class="content">
+        <a href="#" id="start">Click to Sign In</a>
+        <div id="token" class="hidden">
+            <h2>Access Token</h2>
+            <div id="access_token" class="code"></div>
+        </div>
+        <div id="error" class="hidden">
+            <h2>Error</h2>
+            <div id="error_details" class="code"></div>
+        </div>
+    </div>
+</div>
 
-    <script>
-      // This is for extracting the access_token, if there is one,
-      // from the URI fragment, displaying it and setting it in the
-      // Authorization header for htmx requests.
-      const accessToken = new
-      URLSearchParams(location.hash.substring(1)).get("access_token");
-      if (accessToken) {
-	document.getElementById("access-token").setAttribute("value", accessToken);
-      }
+</main>
 
-      const getAuthorizationHeader = function () { "Bearer" + accessToken };
+<script src="site.js" type="module">
+</script>
 
-      for (const el of document.getElementsByClassName("authorized")) {
-	el.setAttribute("hx-headers",
-			JSON.stringify({"authorization": "Bearer " + accessToken}))
-      }
-    </script>
-
-  </body>
+</body>
 </html>

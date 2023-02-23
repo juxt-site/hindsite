@@ -110,7 +110,10 @@
 	      Loading operations...
 	    </code>
 	  </div>
+
 	</figure>
+
+	<p id="bar">Click HERE to print a list of operations onto the console!</p>
 
       </section>
 
@@ -130,44 +133,78 @@
 	      <div class="authorized"
 		   :hx-get="apiServer + '/_site/users'"
 						       hx-trigger="load">
-									<code>
-									  Loading users...
-									</code>
-									<aside>(note: this won't complete until we have authorization working!)</aside>
-</div>
+		<code>
+		  Loading users...
+		</code>
+		<aside>(note: this won't complete until we have authorization working!)</aside>
+	      </div>
 
-</figure>
--->
+	    </figure>
+	    -->
 
-<!--
-    <h3>mal</h3>
-    <div class="authorized" :hx-get="apiServer + '/users/mal'" hx-trigger="load">
-      <code>
-	Loading mal...
-      </code>
-    </div>
-    -->
+	    <!--
+		<h3>mal</h3>
+		<div class="authorized" :hx-get="apiServer + '/users/mal'" hx-trigger="load">
+		  <code>
+		    Loading mal...
+		  </code>
+		</div>
+		-->
 
-</section>
+      </section>
 
-<div class="flex-center full-height">
-    <div class="content">
-        <a href="#" id="start">Click to Sign In</a>
-        <div id="token" class="hidden">
+      <div class="flex-center full-height">
+	<div class="content">
+          <a href="#" id="start">Click to Sign In</a>
+          <div id="token" class="hidden">
             <h2>Access Token</h2>
             <div id="access_token" class="code"></div>
-        </div>
-        <div id="error" class="hidden">
+          </div>
+          <div id="error" class="hidden">
             <h2>Error</h2>
             <div id="error_details" class="code"></div>
-        </div>
-    </div>
-</div>
+          </div>
+	</div>
+      </div>
 
-</main>
+      <p id="foo">Click HERE to get access token</p>
 
-<script src="site.js" type="module">
-</script>
+    </main>
 
-</body>
+    <script type="module">
+      import { useOAuth2 } from "./oauth2.js";
+
+      const { sendAuthTokenRequest, isError, sendAuthCodeRequest } = useOAuth2({
+	client_id: "surveyor",
+	authorization_endpoint: "https://auth.site.test/oauth/authorize",
+	token_endpoint: "https://auth.site.test/oauth/token",
+	redirect_uri: "https://surveyor.site.test/index.html",
+	requested_scopes: "",
+	protected_hostname: "data.site.test",
+	protected_pathname: "/*",
+      });
+
+      document.getElementById("foo").addEventListener("click", sendAuthCodeRequest);
+
+      document.getElementById("bar").addEventListener("click", async () =>
+	{
+	  const response = await fetch("https://data.site.test/_site/operations",
+				       { method: 'GET', headers: {"accept": "application/json"}})
+	  const data = await response.json();
+	  console.dir(data);
+	  ;
+	});
+
+      if (isError) {
+	alert("ERROR");
+      } else {
+	sendAuthTokenRequest(
+          (data) => console.log("authenticated"),
+          (error) => {console.log("ERROR"); console.dir(error); }
+	);
+      }
+    </script>
+
+
+  </body>
 </html>
